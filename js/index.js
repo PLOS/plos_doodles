@@ -31,7 +31,7 @@ function coAuthorQueryParams (rName) {
  var aNames = nameArrayFromInput('#author-names');
  var auRune = '[au]'
  var aClauses = aNames.map(function(aName) {
-   return aName.trim() + auRune;                         
+   return aName.trim() + auRune;
  })
  var query = rName.trim() + auRune + `+AND+(${aClauses.join('+OR+')})`
  return query;
