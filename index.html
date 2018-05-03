@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>Reviewer Helper</title>
+
+
+  <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
+
+
+
+</head>
+  <body>
+    <div class="col-xs-10 col-xs-offset-1">
+      <div class="row">
+      <h1>Reviewer helper (pubmed edition)</h1>
+      <div class="col-xs-6">
+        <h4>Key word paper search</h4>
+        <textarea class="form-control" id="key-words" placeholder="Comma separated key words" oninput="updateKeyWords()"></textarea>
+        <br>
+        <button class="btn btn-primary" onclick="searchPubmed()">
+          Search Pubmed
+        </button>
+      </div>
+      <div class="col-xs-2" id="key-word-list">
+      </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-xs-6">
+          <h4>Paper Authors</h4>
+          <textarea class="form-control" id="author-names" placeholder="Comma separated author names" oninput="updateAuthorNames()"></textarea>
+        </div>
+        <div class="col-xs-6">
+          <ul id="author-names-list">
+          </ul>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-xs-6">
+          <h4>Prospective Reviewers</h4>
+          <textarea class="form-control" id="reviewer-names" placeholder="Comma separated reviewer names" oninput="updateReviewerNames()"></textarea>
+        </div>
+        <div class="col-xs-6">
+          <ul id="reviewer-names-list">
+          </ul>
+        </div>
+      </div>
+      <label>
+        <input id="format-names" type="checkbox" oninput="refreshNames()">
+        Format Names (ie: "John Q. Public" becomes "Public J")
+      </label>
+    </div>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+    <script  src="js/index.js"></script>
+  </body>
+</html>
