@@ -1,3 +1,5 @@
+// helper stuff
+
 var pubMedQueryUrl = "https://www.ncbi.nlm.nih.gov/pubmed/?term="
 
 function updateKeyWords (event) {
@@ -59,4 +61,43 @@ function nameArrayFromInput (inputSelector) {
 function refreshNames () {
   updateReviewerNames();
   updateAuthorNames();
+}
+
+// leaderboard
+
+var search = "https://journals.plos.org/plosone/dynamicSearch?resultsPerPage=5&sortOrder=MOST_VIEWS_ALL_TIME&q=publication_date:"
+// publication_date:[2018-10-01T00:00:00 TO 2018-12-21T23:59:59Z]
+$(document).ready(function(){
+  var now = new Date
+  var nowMs = now.getTime()
+  var oneDayMs = 24 * 60 * 60 * 1000
+  var twoDaysAgo = new Date(nowMs - (2 * oneDayMs))
+  var lastWeek = new Date(nowMs - (7 * oneDayMs))
+  var lastMonth = new Date(nowMs - (30 * oneDayMs))
+  var lastYear = new Date(nowMs - (365 * oneDayMs))
+
+  $.getJSON(search + `[${lastWeek.toISOString()} TO ${now.toISOString()}]`, function(data) {
+    console.log(data)
+    $('<ul/>', {class: "list-group", html: buildListItems(data.searchResults.docs)}).appendTo('#week')
+  })
+
+  $.getJSON(search + `[${lastMonth.toISOString()} TO ${now.toISOString()}]`, function(data) {
+    console.log(data)
+    $('<ul/>', {class: "list-group", html: buildListItems(data.searchResults.docs)}).appendTo('#month')
+  })
+
+  $.getJSON(search + `[${lastYear.toISOString()} TO ${now.toISOString()}]`, function(data) {
+    console.log(data)
+    $('<ul/>', {class: "list-group", html: buildListItems(data.searchResults.docs)}).appendTo('#year')
+  })
+})
+
+
+function buildListItems (docs) {
+  return docs.map(function(article){
+    var journal = `<h6>${article.journal_name}</h6>`
+    var anchor = `<p><a href="https://journals.plos.org${article.link}">${article.title}</a></p>`
+    var badge = `<span class="badge">${article.counter_total_all}</span>`
+    return `<li class="list-group-item">${badge}${journal}${anchor}</li>`
+  }).join('')
 }
