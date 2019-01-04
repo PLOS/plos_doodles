@@ -79,15 +79,17 @@ $(document).ready(function(){
   $.getJSON(search, queryStringData(lastWeek, now, 'lastWeekCallback'))
   $.getJSON(search, queryStringData(lastMonth, now, 'lastMonthCallback'))
   $.getJSON(search, queryStringData(lastYear, now, 'lastYearCallback'))
+  // $.getJSON(search, queryStringData(new Date(0), now, 'trendingCallback', 'counter_total_month'))
 })
 
 function lastWeekCallback(data) { buildListItems(data, '#week') }
 function lastMonthCallback(data) { buildListItems(data, '#month') }
 function lastYearCallback(data) { buildListItems(data, '#year') }
+function trendingCallback(data) { buildListItems(data, '#trending')}
 
 function queryStringData(startDate, endDate, callback, counter='counter_total_all') {
   // something is up with solr...
-  var exclude = ['*title', '*abstract', '*references', '*body', '*introduction', '*results_and_discussion', '*materials_and_methods', '*supporting_information']
+  var exclude = ['*title', '*abstract', '*references', '*body', '*introduction', '*results_and_discussion', '*materials_and_methods', '*supporting_information', '*conclusions']
   return {
     sort: `${counter} desc`,
     fl: `id,title,journal_name,${counter}`,
@@ -101,7 +103,7 @@ function buildListItems (data, elementId) {
   var listItems =  data.response.docs.map(function(article){
     var journal = `<h6>${article.journal_name}</h6>`
     var anchor = `<p><a href="https://dx.plos.org/${article.id}">${article.title}</a></p>`
-    var badge = `<span class="badge">${article.counter_total_all}</span>`
+    var badge = `<span class="badge">${article.counter_total_all || article.counter_total_month}</span>`
     return `<li class="list-group-item">${badge}${journal}${anchor}</li>`
   }).join('')
   $('<ul/>', {class: "list-group", html: listItems}).appendTo(elementId)
