@@ -86,19 +86,21 @@ function lastMonthCallback(data) { buildListItems(data, '#month') }
 function lastYearCallback(data) { buildListItems(data, '#year') }
 
 function queryStringData(startDate, endDate, callback, counter='counter_total_all') {
+  // something is up with solr...
+  var exclude = ['*title', '*abstract', '*references', '*body', '*introduction', '*results_and_discussion', '*materials_and_methods', '*supporting_information']
   return {
     sort: `${counter} desc`,
     fl: `id,title,journal_name,${counter}`,
     wt: 'json',
     'json.wrf': callback,
-    q: `publication_date:[${startDate.toISOString()} TO ${endDate.toISOString()}]`
+    q: `publication_date:[${startDate.toISOString()} TO ${endDate.toISOString()}] AND -id:(${exclude.join(' OR ')})`
   }
 }
 
 function buildListItems (data, elementId) {
   var listItems =  data.response.docs.map(function(article){
     var journal = `<h6>${article.journal_name}</h6>`
-    var anchor = `<p><a href="https://journals.plos.org${article.link}">${article.title}</a></p>`
+    var anchor = `<p><a href="https://dx.plos.org/${article.id}">${article.title}</a></p>`
     var badge = `<span class="badge">${article.counter_total_all}</span>`
     return `<li class="list-group-item">${badge}${journal}${anchor}</li>`
   }).join('')
