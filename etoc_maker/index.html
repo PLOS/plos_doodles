@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>ETOC Maker</title>
+</head>
+<body>
+  <div>
+    <p>WORK IN PROGRESS!!! Not for production use. Known issues: </p>
+    <p>Doesn't generate issue/volume based titles</p>
+    <p>Doesn't insert EM blurbs</p>
+    <p>Date range based on current day</p>
+    <p>PLOS ONE doesn't have correct template</p>
+    <p>Counter tag might be mangled by browser formatting</p>
+    <p>Some URLs might be mangled</p>
+    <select id="journal">
+    </select>
+
+    <select id="date-range">
+      <option value="weekly">Weekly</option>
+      <option value="monthly">Monthly</option>
+    </select>
+    <button id="copy-template">Copy template HTML to clipboard!</button>
+    <textarea id="textarea"></textarea>
+  </div>
+  <div id="template">
+  <!-- Here begins the template -->
+  <center>
+  	<table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="backgroundTable">
+     <tr>
+       <td align="center" valign="top">
+         <table border="0" cellpadding="0" cellspacing="0" width="728" id="templateContainer" style="border-left:1px solid #cdcdcd; border-right: 1px solid #cdcdcd; border-spacing: 0 !important;">
+           <tr>
+             <td id="ad-top" align="center" valign="top">
+              <!-- // Begin Template Header \\ -->
+
+              <!-- LiveIntent Top Banner Ad -->
+              <p style="
+              display:inline;
+              float:right;
+              font-size:8px;
+              color:#cdcdcd;
+              font-style:italic;
+              font-family:Arial;
+  						margin-top:0;
+  						padding-top:0;
+  						margin-right:3px;">ADVERTISEMENT</p>
+              <!-- End LiveIntent Top Banner Ad -->
+              <!-- // End Template Header \\ -->
+            </td>
+           </tr>
+          <tr>
+           <td align="center" valign="top">
+            <!-- // Begin Template Body \\ -->
+            <table border="0" cellpadding="0" cellspacing="0" width="728" id="templateBody" style="border-spacing: 0 !important;">
+             <tr>
+              <td valign="top" class="bodyContent">
+
+                <!-- // Begin Module: Standard Content \\ -->
+                <table border="0" cellpadding="" cellspacing="0" width="100%" style="font-family:Arial;">
+                  <tr style="display:block; clear:both; padding-bottom:15px;">
+
+                    <td align="left" width="552" style="text-align:left; padding-left:40px;">
+                      <img width="225" id="header-image" height="auto" style="height:auto;"/>
+  									</td>
+
+  									<td align="left" width="176" style="clear: right;text-align:right; padding:15px;">
+                      <p style="text-align:right; width:175px;">
+                        <a href="https://community.plos.org/account/alerts/journal-alerts" style="
+                        text-decoration:none;
+                        color:#333333;
+                        font-size:14px;
+                        color:grey;
+  											text-align:right;
+                        padding-right:15px;">Manage Preferences ></a>
+                      </p>
+  									</td>
+
+  								</tr>
+  							</table>
+  							<table border="0" cellpadding="" cellspacing="0" width="100%" style="font-family:Arial;">
+  								<tr width="100%" id="header-row">
+  									<td width="100%" style="padding:15px 45px 15px 45px">
+                      <h1 id="header-text"
+                      style="
+                      color:white;
+                      font-size:28px;
+                      font-weight: normal;
+  										margin:0;
+                      ">
+                      </h1>
+  									</td>
+  								</tr>
+
+  								<tr>
+  									<td style="padding-left:45px; padding-right:45px; padding-top:25px; padding-bottom:0;">
+                        <h2 id="publish-date-range">
+
+                        </h2>
+  										</td>
+  									</tr>
+
+  									<tr>
+  										<td id="articles" style="padding-left:45px; padding-right:45px;">
+  										</td>
+  									</tr>
+                </table>
+                <!-- // End Module: Standard Content \\ -->
+              </td>
+            </tr>
+          </table>
+          <!-- // End Template Body \\ -->
+        </td>
+     </tr>
+  		<tr>
+  			<td>
+  				<p style="font-size:8px;
+  				font-style:italic;
+  				color:#cdcdcd;
+  				margin-left:3px;
+  				font-family:Arial;">
+  				ADVERTISEMENT</p>
+  			</td>
+  		</tr>
+      <tr>
+        <td id="ad-bottom" align="center" valign="top">
+
+  			<!-- LiveIntent Bottom Ad -->
+
+
+  			<!-- End LiveIntent Bottom Ad -->
+
+      	</td>
+    	</tr>
+    	<tr>
+     <td align="center" valign="top">
+      <!-- // Begin Template Footer \\ -->
+      <table border="0" cellpadding="" cellspacing="0" width="728" id="templateFooter" style="border-spacing: 0 !important;">
+       <tr>
+         <td valign="top">
+
+          <table cellspacing="0" cellpadding="0" border="0" width="100%" style="font-family: Arial,Helvetica,sans-serif; border-spacing: 0 !important; background-color: #484848; text-align:center; font-size:9px; margin: 0; padding: 15px 0 15px 0;">
+            <tbody>
+              <tr><!-- Call to Action -->
+  							<td>
+  								<table style="margin:0 auto;">
+  								<tr>
+  									<td style="padding-left:65px;"></td>
+  									<td width="418" style="padding-right:20px;">
+  										<p style="font-family: Arial; color:white;font-size:16px;display:inline-block; text-align:left;">Want to hear more from PLOS? Access our full list of journal alerts and create unique updates through your PLOS Account</p>
+  									</td>
+  									<td width="160">
+  										<a id="register" href="https://community.plos.org/registration/new" style="color:white; padding:5px 10px; font-size:14px; text-decoration:none; display:inline-block;" target="_blank">&nbsp; &nbsp;REGISTER NOW&nbsp; &nbsp;</a>
+  									</td>
+  									<td style="padding-right:65px;"></td>
+  								</tr>
+  							</table>
+  							</td>
+  						</tr>
+  						<tr><!-- Submit your research -->
+  							<td align="center" style="padding-bottom:25px;">
+  								<p style="display:inline-block;">
+  									<a href="https://www.plos.org/submit" style="
+  										color:#333333;
+  										background:#e9e9e9;
+  										padding:8px 15px;
+  										text-decoration:none;
+  										text-align:center;
+  										font-size:20px;
+  										color:#484848;
+  									" target="_blank">&nbsp; &nbsp; SUBMIT YOUR RESEARCH &nbsp; &nbsp;</a>
+  								</p>
+  							</td>
+  						</tr>
+  						<tr><!-- You are receiving this e-mail -->
+  							<td style="padding-bottom:20px;">
+  								<p style="font-size:12px; color:white;">
+  									You are receiving this email because you opted to receive updates from <em>{{ journal.name }}</em>
+  								</p>
+  							</td>
+  						</tr>
+  						<tr><!-- Unsubscribe and Contact -->
+  							<td>
+  								<p style="font-size:14px; color:white;">
+  									<a style="color: white; width:150px; display:inline-block;" href="%%subscription_center_url%%">UNSUBSCRIBE</a>  | <a style="color: white; width:150px; display:inline-block;" href="{{ journal.new_hostname }}/s/contact" target="_blank">CONTACT US</a> | <a style="color: white; width:150px; display:inline-block;" href="https://www.plos.org/submit">SUBMIT</a>
+  								</p>
+  							</td>
+  						</tr>
+  						<tr><!-- CC-BY -->
+  							<td style="padding: 25px 45px 25px 45px;">
+  								<p style="color:white;">All works published in PLOS journals are open access, distributed under the terms of the
+  									<a style="color: white;" href="http://creativecommons.org/licenses/by/4.0/" title="CreativeCommons.org | Attribution License">Creative Commons Attribution License</a>,
+  									which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.
+  									Copyright is retained by the author. You can <a style="color: white;" href="%%subscription_center_url%%" title="Change/Discontinue E-mail Alerts">change or discontinue your alerts</a> at any time by modifying your <a style="color: white;" href="%%profile_center_url%%">profile.</a>
+  								</p>
+  							</td>
+  						</tr>
+  						<tr><!-- Exact Target Business Info -->
+  							<td style="padding-bottom:15px;">
+  								<p style="color:white; font-size: 12px;">%%Member_Busname%%<br />%%Member_Addr%%<br /> %%Member_City%%, %%Member_State%% %%Member_PostalCode%%, %%Member_Country%%</p>
+  							</td>
+  						</tr>
+            </tbody>
+          </table>
+  			</tr>
+                <!-- // End Module: Standard Footer \\ -->
+
+              </td>
+            </tr>
+          </table>
+          <!-- // End Template Footer \\ -->
+        </td>
+      </tr>
+    </table>
+  	</table>
+  </center>
+  <div id="ad-rtb">
+  </div>
+  <!-- LiveIntent SafeRTB Tag -->
+  <!-- End LiveIntent SafeRTB Tag -->
+
+  <custom name="opencounter" type="tracking">
+
+  <!--end of template -->
+  </div>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <script  src="js/index.js"></script>
+</body>
+</html>
