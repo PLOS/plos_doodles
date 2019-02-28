@@ -10,16 +10,8 @@ $(document).ready(function(){
 })
 
 function searchUrl() {
-  if ($('#use-dev-search').prop('checked')) {
-    return 'http://solr-mega-dev.soma.plos.org/solr/journals_dev_20190208/select?callback=?'
-  } else {
-    return "https://api.plos.org/search?callback=?"
-  }
+  return "https://api.plos.org/search?callback=?"
 }
-
-$('#use-dev-search').on('click', function(e) {
-  leaderboard();
-})
 
 $('#journal-select').on('change', function(e) {
   console.log(this.value)
