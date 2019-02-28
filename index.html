@@ -3,19 +3,39 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Reviewer Helper</title>
-
-
+  <title>PLOS code doodles</title>
   <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
-
-
-
 </head>
   <body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">
+            <img id="journal-logo" alt="Brand" style="height:100%" src="http://www.plos.org/images/logo-plos.svg">
+          </a>
+          <p class="navbar-text">PLOS Article Leaderboard</p>
+          <select class="navbar-text" id="journal-select"></select>
+          <div class="navbar-text">
+            <input class="navbar-text" type="checkbox" id="use-dev-search">
+            Use Dev Solr
+          </div>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">More doodles</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/reviewer_helper/reviewer_helper">Reviewer Helper</a></li>
+                <li><a href="/reviewer_helper/etoc_maker">ETOC maker</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <h1>PLOS Article Leaderboard</h1>
-        <p>NB: actual view numbers might be a bit off due to a known bug in our search engine, but seem to roughly track relative popularity and viewership</p>
+        <p>NB: Actual view numbers can be up to a day old. Dev SOLR might be missing latest DOIs (requires VPN/Office network). Production numbers are <a href="https://jira.plos.org/jira/browse/ROUT-375">broken</a></p>
       </div>
       <div class="col-md-3" >
         <div class="panel panel-default">
@@ -42,50 +62,7 @@
         </div>
       </div>
     </div>
-    <div class="col-xs-10 col-xs-offset-1">
-      <div class="row">
-      <h1>Reviewer helper (pubmed edition)</h1>
-      <div class="col-xs-6">
-        <h4>Key word paper search</h4>
-        <textarea class="form-control" id="key-words" placeholder="Comma separated key words" oninput="updateKeyWords()"></textarea>
-        <br>
-        <button class="btn btn-primary" onclick="searchPubmed()">
-          Search Pubmed
-        </button>
-      </div>
-      <div class="col-xs-2" id="key-word-list">
-      </div>
-      </div>
-      <br>
-      <div class="row">
-        <div class="col-xs-6">
-          <h4>Paper Authors</h4>
-          <textarea class="form-control" id="author-names" placeholder="Comma separated author names" oninput="updateAuthorNames()"></textarea>
-        </div>
-        <div class="col-xs-6">
-          <ul id="author-names-list">
-          </ul>
-        </div>
-      </div>
-      <br>
-      <div class="row">
-        <div class="col-xs-6">
-          <h4>Prospective Reviewers</h4>
-          <textarea class="form-control" id="reviewer-names" placeholder="Comma separated reviewer names" oninput="updateReviewerNames()"></textarea>
-        </div>
-        <div class="col-xs-6">
-          <ul id="reviewer-names-list">
-          </ul>
-        </div>
-      </div>
-      <label>
-        <input id="format-names" type="checkbox" onchange="refreshNames()">
-        Format Names (ie: "John Q. Public" becomes "Public J")
-      </label>
-      <div>
-        Disclaimer: This is a beta piece of software! Double check that its putting together the right queries.
-      </div>
-    </div>
+  </div>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script>
     <script  src="js/index.js"></script>

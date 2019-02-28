@@ -36,7 +36,7 @@ $('#date-range').on('change', function() {
 });
 
 function endDate(){
-  var days = settings.dateRange == 'weekly' ? 7 : 30;
+  var days = settings.dateRange == 'weekly' ? 7 : 365;
   return new Date(Date.now() - 24 * 60 * 60 * 1000 * days);
 }
 
