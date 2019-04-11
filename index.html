@@ -29,21 +29,26 @@
     </nav>
     <div class="container">
     <div class="row">
+      <div class="alert alert-warning alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>NB:</strong>Actual view numbers can be up to a day old. This is just a side project, not a PLOS sanctioned product.
+      </div>
+
       <div class="col-md-3" >
         <div class="panel panel-default">
-          <div class="panel-heading">Published this week</div>
+          <div class="panel-heading">Published last 7 days</div>
           <div class="panel-body" id="week"></div>
         </div>
       </div>
       <div class="col-md-3" >
         <div class="panel panel-default">
-          <div class="panel-heading">Published this month</div>
+          <div class="panel-heading">Published last 30 days</div>
           <div class="panel-body" id="month"></div>
         </div>
       </div>
       <div class="col-md-3" >
         <div class="panel panel-default">
-          <div class="panel-heading">Published this year</div>
+          <div class="panel-heading">Published last 365 days</div>
           <div class="panel-body" id="year"></div>
         </div>
       </div>
