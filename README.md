@@ -1,2 +1,2 @@
-# reviewer_helper
-Some static tools to help find reviewers
+# PLOS Doodles
+A sandbox for some html/js ideas to help out PLOS.
