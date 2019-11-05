@@ -9,6 +9,8 @@ $(document).ready(function(){
   leaderboard();
 })
 
+var journalInterval = 45000;
+
 function searchUrl() {
   return "https://api.plos.org/search?callback=?"
 }
@@ -19,6 +21,24 @@ $('#journal-select').on('change', function(e) {
   $('#journal-logo').attr('src', src)
   leaderboard();
 })
+
+$('#cycle').on('change', function(e) {
+  if (e.target.checked) {
+    window.cycleInterval = setInterval(cycleJournals, journalInterval)
+  } else {
+    clearInterval(window.cycleInterval)
+  }
+})
+
+function cycleJournals() {
+  var opts = ['all'].concat(Object.keys(JOURNALS)).sort()
+  var nextIdx = opts.indexOf($('#journal-select').val()) + 1
+  var value = nextIdx == opts.length ? 'all' : opts[nextIdx]
+  $('#journal-select').val(value).change()
+  setTimeout(() => {
+    $("html, body").animate({ scrollTop: $(document).height() }, journalInterval - 3000, 'linear');
+  }, 3000)
+}
 
 function leaderboard() {
   ['#week', '#month', '#year', '#trending'].forEach(function(elementId) {
@@ -49,6 +69,7 @@ function trendingCallback(data) { buildListItems(data, '#trending')}
 
 function queryStringData(startDate, endDate, callback, counter='counter_total_all') {
   var query = `publication_date:[${startDate.toISOString()} TO ${endDate.toISOString()}] AND doc_type:"full"`
+  query += ' -article_type:"Issue Image"'
   if ($('#journal-select').val() != 'all') {
     query += ` AND journal_key:"${JOURNALS[$('#journal-select').val()].journalKey}"`
   }
@@ -64,11 +85,12 @@ function queryStringData(startDate, endDate, callback, counter='counter_total_al
 
 function buildListItems (data, elementId) {
   $(elementId).html(''); // clear old html
-  var listItems =  data.response.docs.map(function(article){
-    var journal = `<h6>${article.journal_name}</h6>`
+  var listItems =  data.response.docs.map(function(article, idx){
+    var journal = `<h6>${idx + 1}. ${article.journal_name}</h6>`
     var anchor = `<p><a href="https://dx.plos.org/${article.id}">${article.title}</a></p>`
-    var badge = `<span class="badge">${article.counter_total_all || article.counter_total_month}</span>`
-    return `<li class="list-group-item">${badge}${journal}${anchor}</li>`
+    var doi = `<em>${article.id}</em>`
+    var badge = `<span class="badge">${article.counter_total_all || article.counter_total_month || 'No Data'}</span>`
+    return `<li class="list-group-item">${badge}${journal}${anchor}${doi}</li>`
   }).join('')
   $('<ul/>', {class: "list-group", html: listItems}).appendTo(elementId)
 }
