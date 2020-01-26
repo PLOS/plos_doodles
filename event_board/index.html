@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title>PLOS Article Event Board!</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <h2>PLOS Article Event Board!</h2>
+      </div>
+      <div class="row">
+        <span class="">This is an experimental display of PLOS article bibliometric data syphoned off from Crossref's <a href="http://live.eventdata.crossref.org/live.html">experimental datastream</a>.</span>
+        <span id="rate"></span>
+      </div>
+      <div class="row">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Timestamp</th>
+              <th scope="col">DOI</th>
+              <th scope="col">Event Source</th>
+              <th scope="col">Link</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+
+          </tbody>
+        </table>
+      </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script>
+        var displayEvents = [];
+        var rateTimer;
+        var rateCount = 0;
+        const interval = 5; // five seconds
+        setInterval(function(){
+          $('#rate').text(`Processing ${rateCount/interval} events per second...`)
+          rateCount = 0;
+        }, interval * 1000)
+        // TODO: if the data stream gets too intense, maybe break this out into a webworker
+        var ws = new WebSocket('wss://live.eventdata.crossref.org/events-socket');
+        ws.onmessage = function(event) {
+          rateCount++
+          if (event.data.indexOf('10.1371') != -1) {
+            displayEvents.unshift(JSON.parse(event.data))
+            console.log(displayEvents[0])
+            displayEvents.length = 10 // limit to 10
+            var rows = displayEvents.map(function(eData) {
+              var ts = eData.timestamp;
+              var urlObj = new URL(eData.obj_id)
+              var doi = urlObj.pathname.substring(1)
+              var sourceName = eData.source_id
+              var eventUrl = sourceName == 'twitter' ? `https://twitter.com/user/status/${eData.subj_id.split('=')[1]}` : eData.subj_id
+              return `<tr><td>${ts}</td><td><a href="${urlObj.toString()}">${doi}</a></td><td>${sourceName}</td><td><a href="${eventUrl}">link</a></td></tr>`
+            })
+            $('#tableBody').html(rows.join())
+          }
+        }
+        ws.onerror = function(event) { console.log(event) }
+        ws.onopen = function(event) {
+          ws.send('start') // lol i think anything will work
+          rateTimer = Date.now()
+        }
+        ws.onclose = function(event) { console.log(event) }
+    </script>
+  </body>
+</html>
